@@ -1,0 +1,27 @@
+name: API-Rex API Documentation Action
+description: Keep your API-Rex API Documentation updated
+inputs:
+  FILE_PATH:
+    description: "File path to API Spec File"
+    required: true
+  SECRET_API_KEY:
+    description: "API Key from API-Rex website"
+    required: true
+  PROJECT_UId:
+    description: "Project UID from API-Rex website"
+    required: true
+  IMPORT_METHOD:
+    description: "Import method"
+    required: false
+    default: "overwrite" # options include: overwrite, merge
+  AUTO_PUBLISH:
+    description: "Auto publish documentation"
+    required: false
+    default: "false"
+
+runs:
+  using: "node16"
+  main: "src/index.js"
+branding:
+  icon: "book-open"
+  color: "green"
