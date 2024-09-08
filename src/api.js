@@ -25,4 +25,4 @@ class ApiRex {
   }
 }
 
-export default ApiRex;
+module.exports = ApiRex;
