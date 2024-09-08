@@ -7,7 +7,7 @@ inputs:
   SECRET_API_KEY:
     description: "API Key from API-Rex website"
     required: true
-  PROJECT_UId:
+  PROJECT_UID:
     description: "Project UID from API-Rex website"
     required: true
   IMPORT_METHOD:
@@ -18,6 +18,9 @@ inputs:
     description: "Auto publish documentation"
     required: false
     default: "false"
+  API_BASE_URL:
+    description: "API Base URL"
+    required: false
 
 runs:
   using: "node16"
