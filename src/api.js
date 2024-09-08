@@ -1,5 +1,4 @@
-import {getInputVar} from "./helper";
-
+const {getInputVar} = require("./helper");
 const axios = require("axios");
 
 class ApiRex {
