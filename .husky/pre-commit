@@ -1,0 +1,35 @@
+# OBJECTIVE:
+# 1. Ensuring that the branch name is prefixed with a Linear ticket number (ex. TOOLS-1234/branch-desc) or NO-REF (ex. NO_REF/branch-desc)
+# 2. Ensuring that all the staged-files are linted to match team standards using our standard linters eslint and prettier 
+# 3. Running the test files related to the  changes introduced in the current branch
+
+# NOTES:
+# 1. SKIP_LINT: An environment variable, which if set to yes, will skip the linting and formatting: SKIP_LINT=yes git commit -m commit_msg
+# 2. SKIP_TESTS: An environment variable, which if set to yes, will skip the execution of test files related to the current changes: SKIP_TEST=yes git commit -m commit_msg
+
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+local_branch="$(git rev-parse --abbrev-ref HEAD)" # fetching current branch name
+valid_branch_regex="^((([A-Z]+)-[0-9]+)|NO_REF)\/[A-Za-z0-9_-]+|HEAD$" # regex for valid branch name
+
+# checking if the branch name matches regex defined above otherwise throw error
+if [[ ! $local_branch =~ $valid_branch_regex ]]; then
+  printf "${RED}Commit failed!${NC}\n"
+  printf "Please ensure the branch name is prefixed with a Linear ticket number for ex.${YELLOW} TOOLS-1203/tckt-desc ${NC}\n"
+  printf "In case you don't have a ticket, pelase prefix it with NO-REF for ex.${YELLOW} NO-REF/tckt_desc ${NC}\n"
+  printf "Your current local branch name:${RED} $local_branch ${NC}\n"
+  printf "To bypass all the checks please use:${YELLOW} git commit -m 'commit_msg' --no-verify ${NC}\n"
+  exit 1
+fi
+
+# if SKIP_LINT is not set to yes, run eslint and prettier formatter for the staged files
+if [ "$SKIP_LINT" != "yes" ]; then
+  npx lint-staged
+fi
+
+# # if SKIP_TEST is not set to yes, run the test files related to the current changes
+# if [ "$SKIP_TEST" != "yes" ]; then
+#   npx test -- -o 
+# fi

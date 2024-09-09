@@ -1,0 +1,14 @@
+# OBJEECTIVE:
+# Ensuring that the commit message is auto-prefixed with Linear ticket number or NO-REF, based on the current branch naem (ex. [TOOLS-1234] Your Commit Msg)
+
+commit_message=$(cat $1) # fetching current mcommit message
+commit_message_regex="^\[((([A-Z]+)-[0-9]+)|NO-REF)\][[:space:]].+$" # expected regex for commit message
+
+BRANCH_NAME="$(git rev-parse --abbrev-ref HEAD)" # fetching current branch name
+
+if [[ !("$BRANCH_NAME" == "HEAD") && !($commit_message =~ $commit_message_regex) ]]; then
+  # splitting the branch name by delimiter '/'
+  IFS='/' read -ra BRANCH_NAME_ARRAY <<< "$BRANCH_NAME"
+  # prefixing commit message with TOOLS-1234 or NO-REF
+  sed -i.bak -e "1s/^/[${BRANCH_NAME_ARRAY[0]}] /" $1
+fi
