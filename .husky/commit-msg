@@ -1,0 +1,21 @@
+# OBJECTIVE:
+# Ensuring that the commit message is prefixed with a Linear ticket number (ex. [TOOLS-1234] Your Commit Msg) or NO-REF (ex. [NO-REF] Your Commit Msg)
+
+commit_message=$(cat $1) # fetching current commit message
+commit_message_regex="^\[(([A-Z]+)-[0-9]+|NO-REF)\][[:space:]].+$" # expected regex for commit message
+
+# color declaration for error message
+RED='\033[0;31m'
+YELLOW='\033[1;33m'
+NC='\033[0m' # No Color
+
+
+# checking if the commit message matches regex defined above otherwise throw error
+if [[ ! $commit_message =~ $commit_message_regex ]]; then
+  printf "${RED}Commit failed!${NC}\n"
+  printf "Please ensure the commit message is prefixed with a Linear ticket number for ex.${YELLOW} [TOOLS-1234] Your Commit Msg ${NC}\n"
+  printf "In case you don't have a ticket, pelase prefix it with NO-REF for ex.${YELLOW} [NO-REF] Your Commit Msg ${NC}\n"
+  printf "Your current local branch name:${RED} $commit_message ${NC}\n"
+  printf "To bypass all the checks please use:${YELLOW} git commit -m 'commit_msg' --no-verify ${NC}\n"
+  exit 1
+fi
