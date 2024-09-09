@@ -12,9 +12,13 @@ async function run() {
   const autoPublish = getInputVar("AUTO_PUBLISH");
 
   const apiRex = new ApiRex(apiKey);
-  await apiRex.importFile(projectUid, path, importMethod, autoPublish);
+  try {
+    await apiRex.importFile(projectUid, path, importMethod, autoPublish);
+  } catch (e) {
+    setOutput("message", `Error importing file ${path}: ${e.message}`);
+  }
 
-  setOutput("message", `File ${path} was successfully imported`);
+  setOutput("message", `File ${path} imported successfully`);
 }
 
 run();
