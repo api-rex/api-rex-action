@@ -22,9 +22,9 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: "18"
-      - name: Update documentation on server
-        uses: API-Rex/api-rex-action@main
+          node-version: "18"              
+      - name: API-Rex API Documentation Action      
+        uses: api-rex/api-rex-action@v1.0.3
         with:
           FILE_PATH: doc/api-spec.yml
           SECRET_API_KEY: ${{secrets.API_REX_ACCOUNT_SECRET}}
