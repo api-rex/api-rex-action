@@ -18,7 +18,7 @@ jobs:
       - name: Update documentation on server
         uses: API-Rex/api-rex-action@main
         with:
-          FILE_PATH: test/openapi_example.yaml
+          FILE_PATH: "test/petstore.yaml"
           SECRET_API_KEY: ${{secrets.API_REX_ACCOUNT_SECRET}}
           PROJECT_UID: ${{vars.PROJECT_UID}}
           IMPORT_METHOD: overwrite
