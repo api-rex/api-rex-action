@@ -1,6 +1,6 @@
 const fs = require("fs");
 const FormData = require("form-data");
-const {getInputVar} = require("./helper");
+const { getInputVar } = require("./helper");
 const axios = require("axios");
 
 class ApiRex {
@@ -11,7 +11,7 @@ class ApiRex {
   }
 
   async importFile(projectUid, filePath, importMethod, autoPublish) {
-    const url = `${this.apiBaseUrl}/github_action/import`;
+    const url = `${this.apiBaseUrl}/maintenance/github/import`;
 
     const formData = new FormData();
 
@@ -30,7 +30,7 @@ class ApiRex {
       ...formData.getHeaders(),
     };
 
-    return axios.put(url, formData, {headers});
+    return axios.put(url, formData, { headers });
   }
 }
 
